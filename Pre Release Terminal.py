@@ -23,6 +23,8 @@ def main():
 
     #Defining a list of student names and emails
     student_data = []
+    #Reading data previously saved into file
+    read_from_file(student_data)
     #Calling a method to display a menu on the console
     menu(student_data)
        
@@ -81,6 +83,7 @@ def new_student(student_data):
         #len(student_data) is used to assign an ID to each student as its value increases with each 
         #addition to the list student_data
         student_data.append([len(student_data),name,email,dob])
+        write_to_file(len(student_data),name,email,dob)
         
     #Calling Menu method again    
     menu(student_data)
@@ -160,8 +163,30 @@ def delete_a_student(student_data):
     menu(student_data)
 
 #Method for writing to a file of students modelled on the list (student_array)
-def write_to_file(student_data):
-    print(null)
+def write_to_file(ID,name,email,dob):
+
+    #Opening a file (student_file) for writing
+    student_file = open('student file.txt','a')
+    
+    #Writing list data to file (student_file)
+    student_file.write(str((ID,name,email,dob)))
+    student_file.write('\n')
+    
+    #Closing the file (student_file)
+    student_file.close()
+
+#Method for reading previously saved data from file 
+def read_from_file(student_data):
+
+    #Opening a file (student_file) for reading
+    student_file = open('student file.txt','r')   
+
+    #Appending file contents to list (student_data)
+    for i in student_file:
+        student_data.append(i)
+
+    #Closing the file (student_file)
+    student_file.close()   
     
 #Calling Start of Program into console. Replace this for modular debugging
 main()
